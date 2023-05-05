@@ -96,6 +96,18 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         return await PagedList<Author>.CreateAsync(collection, authorsResourceParameters.PageNumber, authorsResourceParameters.PageSize);
     }
 
+    public async Task<Author> GetAuthorAsync(Guid authorId)
+    {
+        if (authorId == Guid.Empty)
+        {
+            throw new ArgumentNullException(nameof(authorId));
+        }
+
+#pragma warning disable CS8603 // Possible null reference return.
+        return await _context.Authors.FirstOrDefaultAsync(a => a.Id == authorId);
+#pragma warning restore CS8603 // Possible null reference return.
+    }
+
     public async Task<bool> SaveAsync()
     {
         return (await _context.SaveChangesAsync() >= 0);

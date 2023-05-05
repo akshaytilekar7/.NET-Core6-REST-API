@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Core6WebApi.Helpers;
 
 namespace CourseLibrary.API;
 
@@ -25,7 +26,7 @@ internal static class StartupHelperExtensions
         });
 
         builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>();
-
+        builder.Services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
         builder.Services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
         builder.Services.AddDbContext<CourseLibraryContext>(options =>
@@ -71,8 +72,8 @@ internal static class StartupHelperExtensions
                 var context = scope.ServiceProvider.GetService<CourseLibraryContext>();
                 if (context != null)
                 {
-                    await context.Database.EnsureDeletedAsync();
-                    await context.Database.MigrateAsync();
+                    // await context.Database.EnsureDeletedAsync();
+                    // await context.Database.MigrateAsync();
                 }
             }
             catch (Exception ex)

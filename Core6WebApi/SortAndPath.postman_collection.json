@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a4e70817-9df9-4da3-82ff-5bc19a99eff4",
+		"_postman_id": "f240b3c6-db93-4694-bd43-fbb932993b35",
 		"name": "SortAndPath",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,7 +52,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/authors?orderBy=age, mainCategory desc",
+					"raw": "http://localhost:5000/api/authors?orderBy=name asc, age asc&fields=age,name,id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -65,7 +65,43 @@
 					"query": [
 						{
 							"key": "orderBy",
-							"value": "age, mainCategory desc"
+							"value": "name asc, age asc"
+						},
+						{
+							"key": "fields",
+							"value": "age,name,id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Authors (orderBy = age, mainCategory desc) Copy",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/authors/2902b665-1190-4c70-9915-b9c2d7680450?fields=name,age,description",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"authors",
+						"2902b665-1190-4c70-9915-b9c2d7680450"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "name,age,description"
 						}
 					]
 				}

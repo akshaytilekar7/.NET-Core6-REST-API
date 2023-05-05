@@ -14,12 +14,19 @@ public class AuthorsController : ControllerBase
     private readonly ICourseLibraryRepository _courseLibraryRepository;
     private readonly IMapper _mapper;
     private readonly IPropertyMappingService _propertyMappingService;
+    private readonly IPropertyCheckerService _propertyCheckerService;
 
-    public AuthorsController(ICourseLibraryRepository courseLibraryRepository, IMapper mapper, IPropertyMappingService propertyMappingService)
+    public AuthorsController(
+        ICourseLibraryRepository courseLibraryRepository,
+        IMapper mapper,
+        IPropertyMappingService propertyMappingService,
+        IPropertyCheckerService propertyCheckerService
+        )
     {
         _courseLibraryRepository = courseLibraryRepository ?? throw new ArgumentNullException(nameof(courseLibraryRepository));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
+        this._propertyCheckerService = propertyCheckerService;
     }
 
 
@@ -58,9 +65,25 @@ public class AuthorsController : ControllerBase
         //Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(paginationMetadata));
 
         // return them
-        return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
+        return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo)
+             .ShapeData(authorsResourceParameters.Fields));
+
+        // return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
     }
 
+    [HttpGet("{authorId}", Name = "GetAuthor")]
+    public async Task<IActionResult> GetAuthor(Guid authorId, string? fields)
+    {
+        if (!_propertyCheckerService.TypeHasProperties<AuthorDto>(fields))
+            return BadRequest();
+
+        // get author from repo
+        // get author from repo
+        var authorFromRepo = await _courseLibraryRepository.GetAuthorAsync(authorId);
+
+        // return author
+        return Ok(_mapper.Map<AuthorDto>(authorFromRepo).ShapeData(fields));
+    }
     private string? CreateAuthorsResourceUri(AuthorsResourceParameters authorsResourceParameters, ResourceUriType type)
     {
         switch (type)
