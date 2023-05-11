@@ -1,8 +1,6 @@
 ﻿using Core6WebApi.Controllers;
 using Core6WebApi.DbContexts;
 using Core6WebApi.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Core6WebApi.Helpers;
