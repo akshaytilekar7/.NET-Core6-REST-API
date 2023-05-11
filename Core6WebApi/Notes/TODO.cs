@@ -8,7 +8,15 @@ from course	ASP.NET Core 6 Web API Deep Dive
 	HTTP validation for caching
 	supporting concurrency
 
-	
 
+from course Logging and Monitoring in ASP.NET Core 6
+	Monitoring tacing is quite boaring
+
+from Unit test
+	httpMock controller test
+
+	ObjectResult
+	CreatedAtAction("GetCourse", _mapper.Map<CourseDto>(course), new { Id = course.Id })
+	Mocking HttpCalls - calling other api fropm our app and unit test for that
 	
 */

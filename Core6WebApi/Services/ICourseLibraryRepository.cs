@@ -10,7 +10,6 @@ public interface ICourseLibraryRepository
     void AddCourse(Guid authorId, Course course);
     void UpdateCourse(Course course);
     Task<PagedList<Author>> GetAuthorsAsync(AuthorsResourceParameters authorsResourceParameters);
-
     Task<Author> GetAuthorAsync(Guid authorId);
     Task<bool> SaveAsync();
 }

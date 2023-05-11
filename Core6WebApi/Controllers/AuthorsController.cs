@@ -78,11 +78,17 @@ public class AuthorsController : ControllerBase
             return BadRequest();
 
         // get author from repo
-        // get author from repo
         var authorFromRepo = await _courseLibraryRepository.GetAuthorAsync(authorId);
 
         // return author
         return Ok(_mapper.Map<AuthorDto>(authorFromRepo).ShapeData(fields));
+    }
+
+    public async Task<ActionResult<IEnumerable<AuthorDto>>> ForUnitTest(AuthorsResourceParameters authorsResourceParameters)
+    {
+        var authorFromRepo = await _courseLibraryRepository.GetAuthorsAsync(authorsResourceParameters);
+
+        return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorFromRepo));
     }
     private string? CreateAuthorsResourceUri(AuthorsResourceParameters authorsResourceParameters, ResourceUriType type)
     {
