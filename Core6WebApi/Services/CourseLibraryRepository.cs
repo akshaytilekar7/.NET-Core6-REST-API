@@ -18,9 +18,9 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
     }
 
-    public void AddCourse(Guid authorId, Course course)
+    public void AddCourse(int authorId, Course course)
     {
-        if (authorId == Guid.Empty)
+        if (authorId == 0)
         {
             throw new ArgumentNullException(nameof(authorId));
         }
@@ -35,14 +35,14 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         _context.Courses.Add(course);
     }
 
-    public async Task<Course> GetCourseAsync(Guid authorId, Guid courseId)
+    public async Task<Course> GetCourseAsync(int authorId, int courseId)
     {
-        if (authorId == Guid.Empty)
+        if (authorId == 0)
         {
             throw new ArgumentNullException(nameof(authorId));
         }
 
-        if (courseId == Guid.Empty)
+        if (courseId == 0)
         {
             throw new ArgumentNullException(nameof(courseId));
         }
@@ -96,9 +96,9 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         return await PagedList<Author>.CreateAsync(collection, authorsResourceParameters.PageNumber, authorsResourceParameters.PageSize);
     }
 
-    public async Task<Author> GetAuthorAsync(Guid authorId)
+    public async Task<Author> GetAuthorAsync(int authorId)
     {
-        if (authorId == Guid.Empty)
+        if (authorId == 0)
         {
             throw new ArgumentNullException(nameof(authorId));
         }

@@ -30,7 +30,7 @@ process flow
         return books;
     }
 
-    public IEnumerable<Guid> CalculateBookIdsForUser()
+    public IEnumerable<int> CalculateBookIdsForUser()
     {
         …
         return bookIdsForUser;

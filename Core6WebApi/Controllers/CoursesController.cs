@@ -23,7 +23,7 @@ public class CoursesController : ControllerBase
 
 
     [HttpPatch("{courseId}")]
-    public async Task<IActionResult> PartiallyUpdateCourseForAuthor(Guid authorId, Guid courseId, JsonPatchDocument<CourseForUpdateDto> patchDocument)
+    public async Task<IActionResult> PartiallyUpdateCourseForAuthor(int authorId, int courseId, JsonPatchDocument<CourseForUpdateDto> patchDocument)
     {
 
         var courseForAuthorFromRepo = await _courseLibraryRepository

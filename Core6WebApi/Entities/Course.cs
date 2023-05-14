@@ -6,7 +6,7 @@ namespace Core6WebApi.Entities;
 public class Course
 {
     [Key]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
      
     [Required]
     [MaxLength(100)]
@@ -18,7 +18,7 @@ public class Course
     [ForeignKey("AuthorId")]
     public Author Author { get; set; } = null!;
 
-    public Guid AuthorId { get; set; }
+    public int AuthorId { get; set; }
 
     public Course(string title)
     {

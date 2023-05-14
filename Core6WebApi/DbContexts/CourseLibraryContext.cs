@@ -24,64 +24,321 @@ public class CourseLibraryContext : DbContext
         modelBuilder.Entity<Author>().HasData(
             new Author("Berry", "Griffin Beak Eldritch", "Ships")
             {
-                Id = Guid.Parse("d28888e9-2ba9-473a-a40f-e38cb54f9b35"),
+                Id = 101,
                 DateOfBirth = new DateTime(1980, 7, 23)
             },
             new Author("Nancy", "Swashbuckler Rye", "Rum")
             {
-                Id = Guid.Parse("da2fd609-d754-4feb-8acd-c4f9ff13ba96"),
+                Id = 102,
                 DateOfBirth = new DateTime(1978, 5, 21)
             },
             new Author("Eli", "Ivory Bones Sweet", "Singing")
             {
-                Id = Guid.Parse("2902b665-1190-4c70-9915-b9c2d7680450"),
+                Id = 103,
                 DateOfBirth = new DateTime(1957, 12, 16)
             },
             new Author("Arnold", "The Unseen Stafford", "Singing")
             {
-                Id = Guid.Parse("102b566b-ba1f-404c-b2df-e2cde39ade09"),
+                Id = 104,
                 DateOfBirth = new DateTime(1957, 3, 6)
             },
             new Author("Seabury", "Toxic Reyson", "Maps")
             {
-                Id = Guid.Parse("5b3621c0-7b12-4e80-9c8b-3398cba7ee05"),
+                Id = 105,
                 DateOfBirth = new DateTime(1956, 11, 23)
             },
             new Author("Rutherford", "Fearless Cloven", "General debauchery")
             {
-                Id = Guid.Parse("2aadd2df-7caf-45ab-9355-7f6332985a87"),
+                Id = 106,
                 DateOfBirth = new DateTime(1981, 4, 5)
             },
             new Author("Atherton", "Crow Ridley", "Rum")
             {
-                Id = Guid.Parse("2ee49fe3-edf2-4f91-8409-3eb25ce6ca51"),
+                Id = 107,
                 DateOfBirth = new DateTime(1982, 10, 11)
-            }
+            },
+
+             new Author("mike", "tyson", "Rum")
+             {
+                 Id = 108,
+                 DateOfBirth = new DateTime(1982, 10, 11)
+             },
+
+              new Author("arthava", "shinde", "Rum")
+              {
+                  Id = 109,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("shyubham", "jyoti", "Rum")
+              {
+                  Id = 110,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+
+              new Author("baba", "k", "Rum")
+              {
+                  Id = 111,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("rohan", "jamanat", "Rum")
+              {
+                  Id = 112,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("guddu", "pandit", "Rum")
+              {
+                  Id = 113,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("kamalesh", "timwari", "Rum")
+              {
+                  Id = 114,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jahangir", "aman", "Rum")
+              {
+                  Id = 115,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("tirtha", "kamat", "Rum")
+              {
+                  Id = 116,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jan", "jani", "Rum")
+              {
+                  Id = 117,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("akshay", "bhau", "Rum")
+              {
+                  Id = 118,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("udasas", "rahil", "Rum")
+              {
+                  Id = 119,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("sahil", "nasy", "Rum")
+              {
+                  Id = 120,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("pyarag", "aadsd", "Rum")
+              {
+                  Id = 121,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              //
+              new Author("shyubham", "jyoti", "Rum")
+              {
+                  Id = 8035,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+
+              new Author("baba", "k", "Rum")
+              {
+                  Id = 8034,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("rohan", "jamanat", "Rum")
+              {
+                  Id = 8033,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("guddu", "pandit", "Rum")
+              {
+                  Id = 8032,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("kamalesh", "timwari", "Rum")
+              {
+                  Id = 8031,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jahangir", "aman", "Rum")
+              {
+                  Id = 8030,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("tirtha", "kamat", "Rum")
+              {
+                  Id = 8029,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jan", "jani", "Rum")
+              {
+                  Id = 8028,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("akshay", "bhau", "Rum")
+              {
+                  Id = 8027,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("udasas", "rahil", "Rum")
+              {
+                  Id = 8026,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("sahil", "nasy", "Rum")
+              {
+                  Id = 8025,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("pyarag", "aadsd", "Rum")
+              {
+                  Id = 8024,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+               new Author("shyubham", "jyoti", "Rum")
+               {
+                   Id = 8023,
+                   DateOfBirth = new DateTime(1982, 10, 11)
+               },
+
+              new Author("baba", "k", "Rum")
+              {
+                  Id = 8022,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("rohan", "jamanat", "Rum")
+              {
+                  Id = 8021,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("guddu", "pandit", "Rum")
+              {
+                  Id = 8020,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("kamalesh", "timwari", "Rum")
+              {
+                  Id = 8019,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jahangir", "aman", "Rum")
+              {
+                  Id = 8018,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("tirtha", "kamat", "Rum")
+              {
+                  Id = 8017,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jan", "jani", "Rum")
+              {
+                  Id = 8016,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("akshay", "bhau", "Rum")
+              {
+                  Id = 9001,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("udasas", "rahil", "Rum")
+              {
+                  Id = 8015,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("sahil", "nasy", "Rum")
+              {
+                  Id = 8014,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("pyarag", "aadsd", "Rum")
+              {
+                  Id = 8013,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+               new Author("shyubham", "jyoti", "Rum")
+               {
+                   Id = 8012,
+                   DateOfBirth = new DateTime(1982, 10, 11)
+               },
+
+              new Author("baba", "k", "Rum")
+              {
+                  Id = 8011,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("rohan", "jamanat", "Rum")
+              {
+                  Id = 8010,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("guddu", "pandit", "Rum")
+              {
+                  Id = 8009,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("kamalesh", "timwari", "Rum")
+              {
+                  Id = 8007,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jahangir", "aman", "Rum")
+              {
+                  Id = 8006,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("tirtha", "kamat", "Rum")
+              {
+                  Id = 8117,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("jan", "jani", "Rum")
+              {
+                  Id = 8005,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("akshay", "bhau", "Rum")
+              {
+                  Id = 8004,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("udasas", "rahil", "Rum")
+              {
+                  Id = 8003,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("sahil", "nasy", "Rum")
+              {
+                  Id = 8002,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              },
+              new Author("pyarag", "aadsd", "Rum")
+              {
+                  Id = 8001,
+                  DateOfBirth = new DateTime(1982, 10, 11)
+              }
             );
 
         modelBuilder.Entity<Course>().HasData(
            new Course("Commandeering a Ship Without Getting Caught")
            {
-               Id = Guid.Parse("5b1c2b4d-48c7-402a-80c3-cc796ad49c6b"),
-               AuthorId = Guid.Parse("d28888e9-2ba9-473a-a40f-e38cb54f9b35"),
+               Id = 501,
+               AuthorId = 101,
                Description = "Commandeering a ship in rough waters isn't easy.  Commandeering it without getting caught is even harder.  In this course you'll learn how to sail away and avoid those pesky musketeers."
            },
            new Course("Overthrowing Mutiny")
            {
-               Id = Guid.Parse("d8663e5e-7494-4f81-8739-6e0de1bea7ee"),
-               AuthorId = Guid.Parse("d28888e9-2ba9-473a-a40f-e38cb54f9b35"),
+               Id = 502,
+               AuthorId = 102,
                Description = "In this course, the author provides tips to avoid, or, if needed, overthrow pirate mutiny."
            },
            new Course("Avoiding Brawls While Drinking as Much Rum as You Desire")
            {
-               Id = Guid.Parse("d173e20d-159e-4127-9ce9-b0ac2564ad97"),
-               AuthorId = Guid.Parse("da2fd609-d754-4feb-8acd-c4f9ff13ba96"),
+               Id = 503,
+               AuthorId = 103,
                Description = "Every good pirate loves rum, but it also has a tendency to get you into trouble.  In this course you'll learn how to avoid that.  This new exclusive edition includes an additional chapter on how to run fast without falling while drunk."
            },
            new Course("Singalong Pirate Hits")
            {
-               Id = Guid.Parse("40ff5488-fdab-45b5-bc3a-14302d59869a"),
-               AuthorId = Guid.Parse("2902b665-1190-4c70-9915-b9c2d7680450"),
+               Id = 504,
+               AuthorId = 104,
                Description = "In this course you'll learn how to sing all-time favourite pirate songs without sounding like you actually know the words or how to hold a note."
            }
            );

@@ -27,7 +27,7 @@ public class DemoAuthorsController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        _courseLibraryRepository.AddCourse(Guid.Parse("bfdd0acd-d314-48d5-a7ad-0e94dfdd9155"), course);
+        _courseLibraryRepository.AddCourse(int.Parse("bfdd0acd-d314-48d5-a7ad-0e94dfdd9155"), course);
 
         return CreatedAtAction("GetCourse", _mapper.Map<CourseDto>(course), new { Id = course.Id });
     }

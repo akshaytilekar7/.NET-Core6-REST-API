@@ -28,7 +28,7 @@ Unit Test Types (Test the only behaviours you coded yourself)
         Xunit   -   built with .Net + cleaner code + improve test isolation
                 -   in fact, asp.net core is itself is tested with Xunit
 
-    Guideline
+    inteline
         -   unit test should only contain one assert so we can easily come to know what exactly fails
             but practically we can assert same behavious in one unit test
 

@@ -5,7 +5,7 @@ namespace Core6WebApi.Entities;
 public class Author
 {
     [Key]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [MaxLength(50)]

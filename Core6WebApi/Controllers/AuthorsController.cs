@@ -72,7 +72,7 @@ public class AuthorsController : ControllerBase
     }
 
     [HttpGet("{authorId}", Name = "GetAuthor")]
-    public async Task<IActionResult> GetAuthor(Guid authorId, string? fields)
+    public async Task<IActionResult> GetAuthor(int authorId, string? fields)
     {
         if (!_propertyCheckerService.TypeHasProperties<AuthorDto>(fields))
             return BadRequest();
@@ -96,7 +96,7 @@ public class AuthorsController : ControllerBase
     {
         await foreach (var bookFromRepository in _courseLibraryRepository.GetAuthorsAsAsyncEnumerable())
         {
-            await Task.Delay(2000);
+            await Task.Delay(150);
             yield return _mapper.Map<AuthorDto>(bookFromRepository);
         }
     }

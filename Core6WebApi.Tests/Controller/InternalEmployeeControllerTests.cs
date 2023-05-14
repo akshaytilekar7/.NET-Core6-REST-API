@@ -24,8 +24,8 @@ namespace EmployeeManagement.Test
         {
             // Arrange
             var list = new List<Author>() {
-                new Author("Megan", "Jones", "Horror") { Id = Guid.Parse("bfdd0acd-d314-48d5-a7ad-0e94dfdd9155") },
-                new Author("Akshay", "Tilekar", "Sci Fi") { Id = Guid.Parse("1fd115cf-f44c-4982-86bc-a8fe2e4ff83e") }
+                new Author("Megan", "Jones", "Horror") { Id = int.Parse("bfdd0acd-d314-48d5-a7ad-0e94dfdd9155") },
+                new Author("Akshay", "Tilekar", "Sci Fi") { Id = int.Parse("1fd115cf-f44c-4982-86bc-a8fe2e4ff83e") }
             };
 
             var input = new AuthorsResourceParameters();
