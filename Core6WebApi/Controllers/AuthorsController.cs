@@ -91,6 +91,7 @@ public class AuthorsController : ControllerBase
         return Ok(bookEntities);
     }
 
+    // not working as expected , loading all data at once, TODO
     [HttpGet("authorstream")]
     public async IAsyncEnumerable<AuthorDto> StreamBooks()
     {

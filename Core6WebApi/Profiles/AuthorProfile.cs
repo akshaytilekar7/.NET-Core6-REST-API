@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Core6WebApi.Helpers;
 
-namespace Core6WebApi.Profiles;
+namespace Core6WebApi.Profiles
+{
 public class AuthorsProfile : Profile
 {
     public AuthorsProfile()
@@ -10,8 +11,8 @@ public class AuthorsProfile : Profile
             .ForMember(dest => dest.Name, opt => 
                 opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
             .ForMember(dest => dest.Age, opt => 
-                opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+                opt.MapFrom(src => (int)src.DateOfBirth.Date.Day));
 
     }
 }
-
+}
