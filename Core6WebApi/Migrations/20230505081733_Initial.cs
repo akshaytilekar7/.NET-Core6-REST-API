@@ -81,7 +81,48 @@ namespace Core6WebApi.Migrations
             migrationBuilder.InsertData(
                 table: "Authors",
                 columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
-                values: new object[] { new Guid("da2fd609-d754-4feb-8acd-c4f9ff13ba96"), 1277955145728000120L, "Nancy", "Universe", "Finance" });
+                values: new object[] { new Guid("a28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "chayan", "paria", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("b28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "amit", "shukla", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("c28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "Peter", "patrik", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("e28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "Bruice", "Wayne", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("f28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "Alfred", "d", "Finance" });
+
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("h28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "jaamat", "aman", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("i28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "akshay", "kamat", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("j28888e9-2ba9-473a-a40f-e38cb54f9b35"), 1279360106496000120L, "manoj", "tiwari", "Finance" });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "DateOfBirth", "FirstName", "LastName", "MainCategory" },
+                values: new object[] { new Guid("da2fd609-d754-4feb-8acd-c4f9ff13ba96"), 1277955145728000120L, "Ishan", "Awasthi", "Finance" });
 
             migrationBuilder.InsertData(
                 table: "Courses",

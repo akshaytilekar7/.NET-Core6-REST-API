@@ -11,6 +11,8 @@ public interface ICourseLibraryRepository
     void UpdateCourse(Course course);
     Task<PagedList<Author>> GetAuthorsAsync(AuthorsResourceParameters authorsResourceParameters);
     Task<Author> GetAuthorAsync(Guid authorId);
+    IAsyncEnumerable<Author> GetAuthorsAsAsyncEnumerable();
+    Task<IEnumerable<Author>> GetAuthorAsync();
     Task<bool> SaveAsync();
 }
 

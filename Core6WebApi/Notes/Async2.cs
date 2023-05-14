@@ -66,5 +66,52 @@ Task
 why we cant use async in Interface ie async task<Rmployee> Get()
     -   because asycn await are related to implmentation detail, how method is implmented
         and interface is just contract
-    -   
+
+
+The Outer Facing Model
+    How do we represent the resource data type?
+    A    
+        Model classes (DTOs)
+        Statically typed approach
+    B        
+        Dynamics, anonymous objects,
+        ExpandoObject
+        Dynamically typed approach
+    
+        Mapping code in controller actions or Reusable IAsyncResultFilter
+
+Manipulating Output with an IAsyncResultFilter
+    -   Filters in ASP.NET Core MVC allow us to run code before or after specific stages in the request processing pipeline
+    
+The ASP.NET Core Request Pipeline Request Response
+    
+    Request   ->   [  next();// logic  ]   ->   [  next();// logic  ]   ->   [  next();// logic  ]
+                   [                   ]        [                   ]        [                   ]
+                   [     middleware    ]        [     middleware    ]        [     middleware    ]
+                   [                   ]        [                   ]        [                   ]
+    Response       [  next();// logic  ]   <-   [  next();// logic  ]   <-   [  next();// logic  ]
+
+
+
+Manipulating Output with an IAsyncResultFilter
+    ASP.NET Core MVC has its own pipeline it sends requests through
+    Filters run within the MVC action invocation pipeline (aka filter pipeline)
+
+The ASP.NET Core MVC Filter Pipeline
+
+    
+Authorization filters
+Resource filters > Model binding
+Action filters > Actions
+Model Binding Action
+Exception filters
+Result filters
+Result executes
+
+Manipulating Output with an IAsyncResultFilter
+    By using result filters, we
+        can keep our actions cleaner
+        promote reuse
+    IResultFilter, IAsyncResultFilter
+    - ResultFilterAttribute (abstract)
 */ 

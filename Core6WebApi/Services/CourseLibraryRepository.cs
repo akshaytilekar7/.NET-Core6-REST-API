@@ -108,6 +108,16 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 #pragma warning restore CS8603 // Possible null reference return.
     }
 
+    public async Task<IEnumerable<Author>> GetAuthorAsync()
+    {
+        return await _context.Authors
+            .ToListAsync();
+    }
+
+    public IAsyncEnumerable<Author> GetAuthorsAsAsyncEnumerable()
+    {
+        return _context.Authors.AsAsyncEnumerable<Author>();
+    }
     public async Task<bool> SaveAsync()
     {
         return (await _context.SaveChangesAsync() >= 0);

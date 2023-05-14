@@ -70,8 +70,8 @@ internal static class StartupHelperExtensions
                 var context = scope.ServiceProvider.GetService<CourseLibraryContext>();
                 if (context != null)
                 {
-                    // await context.Database.EnsureDeletedAsync();
-                    // await context.Database.MigrateAsync();
+                    await context.Database.EnsureDeletedAsync();
+                    await context.Database.MigrateAsync();
                 }
             }
             catch (Exception ex)

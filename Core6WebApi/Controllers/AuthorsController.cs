@@ -1,11 +1,11 @@
 using AutoMapper;
+using Books.API.Filters;
 using Core6WebApi.Helpers;
 using Core6WebApi.Models;
 using Core6WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core6WebApi.Controllers;
-
 
 [ApiController]
 [Route("api/authors")]
@@ -29,8 +29,8 @@ public class AuthorsController : ControllerBase
         this._propertyCheckerService = propertyCheckerService;
     }
 
-
     [HttpGet(Name = "GetAuthors")]
+    [TypeFilter(typeof(AuthorsResultFilter))] // can be used remove if errors
     [HttpHead]
     public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors([FromQuery] AuthorsResourceParameters authorsResourceParameters)
     {
@@ -84,11 +84,21 @@ public class AuthorsController : ControllerBase
         return Ok(_mapper.Map<AuthorDto>(authorFromRepo).ShapeData(fields));
     }
 
-    public async Task<ActionResult<IEnumerable<AuthorDto>>> ForUnitTest(AuthorsResourceParameters authorsResourceParameters)
+    [HttpGet("authors")]
+    public async Task<IActionResult> GetBooks()
     {
-        var authorFromRepo = await _courseLibraryRepository.GetAuthorsAsync(authorsResourceParameters);
+        var bookEntities = await _courseLibraryRepository.GetAuthorAsync();
+        return Ok(bookEntities);
+    }
 
-        return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorFromRepo));
+    [HttpGet("authorstream")]
+    public async IAsyncEnumerable<AuthorDto> StreamBooks()
+    {
+        await foreach (var bookFromRepository in _courseLibraryRepository.GetAuthorsAsAsyncEnumerable())
+        {
+            await Task.Delay(2000);
+            yield return _mapper.Map<AuthorDto>(bookFromRepository);
+        }
     }
     private string? CreateAuthorsResourceUri(AuthorsResourceParameters authorsResourceParameters, ResourceUriType type)
     {
@@ -126,7 +136,4 @@ public class AuthorsController : ControllerBase
                     });
         }
     }
-
-
 }
-

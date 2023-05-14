@@ -18,8 +18,6 @@ namespace EmployeeManagement.Test
     public class InternalEmployeeControllerTests
     {
         private AuthorsController _authorController;
-        private Author _author;
-
 
         [Fact]
         public async Task GetInternalEmployees_GetAction_ReturnsOkObjectResultWithCorrectAmountOfInternalEmployees()
@@ -45,10 +43,10 @@ namespace EmployeeManagement.Test
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<AuthorsProfile>());
             var mapper = new Mapper(mapperConfiguration);
 
-            _authorController = new AuthorsController(_courseLibraryRepositoryMock.Object, mapper, _propertyMappingService.Object, _propertyCheckerService.Object);
+            var _demoController = new DemoController(_courseLibraryRepositoryMock.Object, mapper, _propertyMappingService.Object, _propertyCheckerService.Object);
 
             // Act
-            var result = await _authorController.ForUnitTest(input);
+            var result = await _demoController.ForUnitTest("timepass", input, "a");
 
             // Assert
 
