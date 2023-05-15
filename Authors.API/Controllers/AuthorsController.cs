@@ -101,6 +101,7 @@ public class AuthorsController : ControllerBase
             yield return _mapper.Map<AuthorDto>(bookFromRepository);
         }
     }
+
     private string? CreateAuthorsResourceUri(AuthorsResourceParameters authorsResourceParameters, ResourceUriType type)
     {
         switch (type)

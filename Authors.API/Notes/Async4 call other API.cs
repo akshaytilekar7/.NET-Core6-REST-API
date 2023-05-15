@@ -9,4 +9,10 @@ Dealing with Asynchronous Service Integrations and Supporting Cancellation
     -   Gracefully handling exceptions
     
 
+Maion things we need to do is: call api
+      
+    -   builder.Services.AddHttpClient();
+    -   using _httpClientFactory from DO make calls
+    -   course on it - using HttpClinet to consume APIs in .net
+
 */ 

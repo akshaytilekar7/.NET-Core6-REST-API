@@ -4,6 +4,7 @@ using Authors.API.Helpers;
 using Authors.API.Models;
 using Authors.API.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Authors.API.Controllers;
 
@@ -11,11 +12,13 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 {
     private readonly CourseLibraryContext _context;
     private readonly IPropertyMappingService _propertyMappingService;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public CourseLibraryRepository(CourseLibraryContext context, IPropertyMappingService propertyMappingService)
+    public CourseLibraryRepository(CourseLibraryContext context, IPropertyMappingService propertyMappingService, IHttpClientFactory httpClientFactory)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
+        _httpClientFactory = httpClientFactory;
     }
 
     public void AddCourse(int authorId, Course course)
@@ -118,6 +121,97 @@ public class CourseLibraryRepository : ICourseLibraryRepository
     {
         return _context.Authors.AsAsyncEnumerable<Author>();
     }
+
+    public async Task<Models.External.AuthorCoverDto?> GetAuthorCoverAsync(string id)
+    {
+        var httpClient = _httpClientFactory.CreateClient();
+
+        var response = await httpClient.GetAsync($"http://localhost:52644/api/authorcovers/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<Models.External.AuthorCoverDto>(
+                await response.Content.ReadAsStringAsync(),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true, });
+        }
+
+        return null;
+    }
+
+    public async Task<IEnumerable<Models.External.AuthorCoverDto>> GetAuthorCoversProcessOneByOneAsync(int bookId, CancellationToken cancellationToken)
+    {
+        var httpClient = _httpClientFactory.CreateClient();
+        var bookCovers = new List<Models.External.AuthorCoverDto>();
+
+        // create a list of fake bookcovers
+        var bookCoverUrls = new[]
+        {
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover1",
+                // $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover3",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover4",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover5"
+            };
+
+        using (var cancellationTokenSource = new CancellationTokenSource())
+        {
+            using (var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationTokenSource.Token, cancellationToken))
+            {
+                // fire tasks & process them one by one
+                foreach (var bookCoverUrl in bookCoverUrls)
+                {
+                    var response = await httpClient.GetAsync(bookCoverUrl, linkedCancellationTokenSource.Token);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var bookCover = JsonSerializer.Deserialize<Models.External.AuthorCoverDto>(
+                            await response.Content
+                            .ReadAsStringAsync(linkedCancellationTokenSource.Token),
+                            new JsonSerializerOptions { PropertyNameCaseInsensitive = true, });
+
+                        if (bookCover != null)
+                            bookCovers.Add(bookCover);
+                    }
+                    else
+                        cancellationTokenSource.Cancel();
+                }
+            }
+        }
+        return bookCovers;
+    }
+
+    public async Task<IEnumerable<Models.External.AuthorCoverDto>> GetAuthorCoversProcessAfterWaitForAllAsync(int bookId)
+    {
+        var httpClient = _httpClientFactory.CreateClient();
+        var bookCovers = new List<Models.External.AuthorCoverDto>();
+
+        // create a list of fake bookcovers
+        var bookCoverUrls = new[]
+        {
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover1",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover3",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover4",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover5"
+            };
+
+        var bookCoverTasks = new List<Task<HttpResponseMessage>>();
+        foreach (var bookCoverUrl in bookCoverUrls)
+            bookCoverTasks.Add(httpClient.GetAsync(bookCoverUrl));
+
+        // wait for all tasks to be completed
+        var bookCoverTasksResults = await Task.WhenAll(bookCoverTasks);
+
+        // run through the results in reverse order 
+        foreach (var bookCoverTaskResult in bookCoverTasksResults.Reverse())
+        {
+            var bookCover = JsonSerializer.Deserialize<Models.External.AuthorCoverDto>(
+                await bookCoverTaskResult.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true, });
+
+            if (bookCover != null)
+                bookCovers.Add(bookCover);
+        }
+        return bookCovers;
+    }
+
     public async Task<bool> SaveAsync()
     {
         return (await _context.SaveChangesAsync() >= 0);

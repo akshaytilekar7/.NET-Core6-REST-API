@@ -13,6 +13,9 @@ public interface ICourseLibraryRepository
     Task<Author> GetAuthorAsync(int authorId);
     IAsyncEnumerable<Author> GetAuthorsAsAsyncEnumerable();
     Task<IEnumerable<Author>> GetAuthorAsync();
+    Task<Models.External.AuthorCoverDto?> GetAuthorCoverAsync(string id);
+    Task<IEnumerable<Models.External.AuthorCoverDto>> GetAuthorCoversProcessOneByOneAsync(int bookId, CancellationToken cancellationToken);
+    Task<IEnumerable<Models.External.AuthorCoverDto>> GetAuthorCoversProcessAfterWaitForAllAsync(int bookId);
     Task<bool> SaveAsync();
 }
 

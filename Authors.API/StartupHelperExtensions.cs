@@ -27,6 +27,8 @@ internal static class StartupHelperExtensions
         builder.Services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
         builder.Services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
+        builder.Services.AddHttpClient();
+
         builder.Services.AddDbContext<CourseLibraryContext>(options =>
         {
             options.UseSqlite(@"Data Source=library.db");
@@ -70,8 +72,8 @@ internal static class StartupHelperExtensions
                 var context = scope.ServiceProvider.GetService<CourseLibraryContext>();
                 if (context != null)
                 {
-                    await context.Database.EnsureDeletedAsync();
-                    await context.Database.MigrateAsync();
+                    //await context.Database.EnsureDeletedAsync();
+                    //await context.Database.MigrateAsync();
                 }
             }
             catch (Exception ex)
