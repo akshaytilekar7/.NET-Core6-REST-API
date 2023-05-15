@@ -20,4 +20,8 @@ from Unit test
 	Mocking HttpCalls - calling other api fropm our app and unit test for that
 	Service Colletion unit tests
 
+from asyn await
+	GetAwaiter
+	cancellation toekem - almost done
+	multiple api call using httpClient (one course is there in pluralsight)
 */
