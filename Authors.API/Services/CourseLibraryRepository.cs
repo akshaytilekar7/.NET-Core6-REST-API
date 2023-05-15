@@ -146,12 +146,32 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         var bookCoverUrls = new[]
         {
                 $"http://localhost:52644/api/authorcovers/{bookId}-dummycover1",
-                // $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true",
+                $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true", // to test task fail , CancllationToken used
                 $"http://localhost:52644/api/authorcovers/{bookId}-dummycover3",
                 $"http://localhost:52644/api/authorcovers/{bookId}-dummycover4",
                 $"http://localhost:52644/api/authorcovers/{bookId}-dummycover5"
             };
 
+        // cancellationTokenSource shoul be disposed off as it habey object
+        // to trigger unscucesfull remove comment from above  // $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true", 
+        // by uncommenting we get TaskCaceledExceotion : A task was canceled
+        // one more scenario - user navigates away we need to cancel token
+        // automatically cancel task when user navigates away
+
+        /*
+         cancellation token used when
+            1. api call fail - cancellationTokenSource.Cancel()
+	                  Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+                      An unhandled exception has occurred while executing the request.
+                      System.Threading.Tasks.TaskCanceledException: A TASK WAS CANCELED
+	  
+    
+            2. user navigates away - input parameter cancllationToken
+                    Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+                    An unhandled exception has occurred while executing the request.
+                    System.Threading.Tasks.TaskCanceledException: THE OPERATION WAS CANCELED.
+            
+         */
         using (var cancellationTokenSource = new CancellationTokenSource())
         {
             using (var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationTokenSource.Token, cancellationToken))
@@ -159,25 +179,31 @@ public class CourseLibraryRepository : ICourseLibraryRepository
                 // fire tasks & process them one by one
                 foreach (var bookCoverUrl in bookCoverUrls)
                 {
-                    var response = await httpClient.GetAsync(bookCoverUrl, linkedCancellationTokenSource.Token);
+                    var response = await httpClient.GetAsync(bookCoverUrl, linkedCancellationTokenSource.Token); // or pass cancellationToken to hanlde user navogate away only 1 not 2
                     if (response.IsSuccessStatusCode)
                     {
                         var bookCover = JsonSerializer.Deserialize<Models.External.AuthorCoverDto>(
                             await response.Content
-                            .ReadAsStringAsync(linkedCancellationTokenSource.Token),
+                            .ReadAsStringAsync(linkedCancellationTokenSource.Token), // or pass cancellationToken to hanlde user navogate away only 1 not 2
                             new JsonSerializerOptions { PropertyNameCaseInsensitive = true, });
 
                         if (bookCover != null)
                             bookCovers.Add(bookCover);
                     }
                     else
-                        cancellationTokenSource.Cancel();
+                        cancellationTokenSource.Cancel(); // 1. api call fail 
                 }
             }
         }
         return bookCovers;
     }
-
+    /// <summary>
+    /// Used when we we have to do with something with all 5 api call
+    /// so here we complted 5 api call then reverse resulkt list
+    /// likewise we can use Task.WhenAll() things
+    /// </summary>
+    /// <param name="bookId"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<Models.External.AuthorCoverDto>> GetAuthorCoversProcessAfterWaitForAllAsync(int bookId)
     {
         var httpClient = _httpClientFactory.CreateClient();
@@ -195,10 +221,12 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
         var bookCoverTasks = new List<Task<HttpResponseMessage>>();
         foreach (var bookCoverUrl in bookCoverUrls)
-            bookCoverTasks.Add(httpClient.GetAsync(bookCoverUrl));
+            bookCoverTasks.Add(httpClient.GetAsync(bookCoverUrl)); 
+            // AS we need a task not result so we are NOT AWATING CALL LIKE  (because await will get us result)
+            // await httpClient.GetAsync(bookCoverUrl)
 
-        // wait for all tasks to be completed
-        var bookCoverTasksResults = await Task.WhenAll(bookCoverTasks);
+        // WAIT FOR ALL TASKS TO BE COMPLETED
+        var bookCoverTasksResults = await Task.WhenAll(bookCoverTasks); // WhenAny and others method as well
 
         // run through the results in reverse order 
         foreach (var bookCoverTaskResult in bookCoverTasksResults.Reverse())

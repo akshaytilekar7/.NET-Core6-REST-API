@@ -18,6 +18,7 @@ namespace Authors.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetAuthorCover")]
+        // cancellationTokent this token used to cancel task when user navigates from page
         public async Task<IActionResult> GetBook(int id, CancellationToken cancellationToken)
         {
             var authorEntity = await _courseLibraryRepository.GetAuthorAsync(id);
@@ -30,6 +31,21 @@ namespace Authors.API.Controllers
 
             IEnumerable<Models.External.AuthorCoverDto>? bookCovers2 = await _courseLibraryRepository.GetAuthorCoversProcessAfterWaitForAllAsync(id);
 
+            for (int i = 0; i < 100; i++)
+            {
+                // we have to canceled this heaby calculation also
+                
+                //if (cancellationToken.IsCancellationRequested)
+                //    break;
+                
+                // or
+
+                // cancellationToken.ThrowIfCancellationRequested();
+
+                {
+                    // some logic to perfom
+                }
+            }
             return Ok((authorEntity, bookCovers1));
         }
 
