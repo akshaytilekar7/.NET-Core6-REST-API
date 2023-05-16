@@ -56,6 +56,15 @@ Asserting on private method
         -   attribute return bad request when modelState is invalid 
 
 
+genral idead of unit teting
+    -   only test method
+    -   unit tes do not test following (Integration test tests this)
+        -   Routing
+        -   Filter
+        -   DI
+        -   Middleware
+        -   Model Binding
+        -   Model validation
 
    
 
