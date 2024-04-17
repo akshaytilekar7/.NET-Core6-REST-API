@@ -18,7 +18,7 @@ namespace Authors.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetAuthorCover")]
-        // cancellationTokent this token used to cancel task when user navigates from page
+        // cancellationToken this token used to cancel task when user navigates from page
         public async Task<IActionResult> GetBook(int id, CancellationToken cancellationToken)
         {
             var authorEntity = await _courseLibraryRepository.GetAuthorAsync(id);
@@ -41,7 +41,6 @@ namespace Authors.API.Controllers
                 // or
 
                 // cancellationToken.ThrowIfCancellationRequested();
-
                 {
                     // some logic to perfom
                 }

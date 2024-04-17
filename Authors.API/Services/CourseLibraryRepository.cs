@@ -152,9 +152,10 @@ public class CourseLibraryRepository : ICourseLibraryRepository
                 $"http://localhost:52644/api/authorcovers/{bookId}-dummycover5"
             };
 
-        // cancellationTokenSource shoul be disposed off as it habey object
-        // to trigger unscucesfull remove comment from above  // $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true", 
-        // by uncommenting we get TaskCaceledExceotion : A task was canceled
+        // cancellationTokenSource should be disposed off as its heavy object
+        // to trigger un sucesfull remove comment from above  // $"http://localhost:52644/api/authorcovers/{bookId}-dummycover2?returnFault=true", 
+        // by uncommenting we get TaskCanceledException : A task was canceled
+
         // one more scenario - user navigates away we need to cancel token
         // automatically cancel task when user navigates away
 
@@ -179,12 +180,13 @@ public class CourseLibraryRepository : ICourseLibraryRepository
                 // fire tasks & process them one by one
                 foreach (var bookCoverUrl in bookCoverUrls)
                 {
-                    var response = await httpClient.GetAsync(bookCoverUrl, linkedCancellationTokenSource.Token); // or pass cancellationToken to hanlde user navogate away only 1 not 2
+                    // or pass cancellationToken to hanlde user navoigate away only 1 not 2
+                    var response = await httpClient.GetAsync(bookCoverUrl, linkedCancellationTokenSource.Token);
                     if (response.IsSuccessStatusCode)
                     {
                         var bookCover = JsonSerializer.Deserialize<Models.External.AuthorCoverDto>(
-                            await response.Content
-                            .ReadAsStringAsync(linkedCancellationTokenSource.Token), // or pass cancellationToken to hanlde user navogate away only 1 not 2
+                            // or pass cancellationToken to hanlde user navogate away only 1 not 2
+                            await response.Content.ReadAsStringAsync(linkedCancellationTokenSource.Token),
                             new JsonSerializerOptions { PropertyNameCaseInsensitive = true, });
 
                         if (bookCover != null)
@@ -197,9 +199,10 @@ public class CourseLibraryRepository : ICourseLibraryRepository
         }
         return bookCovers;
     }
+ 
     /// <summary>
     /// Used when we we have to do with something with all 5 api call
-    /// so here we complted 5 api call then reverse resulkt list
+    /// so here we complted 5 api call then reverse resultant list
     /// likewise we can use Task.WhenAll() things
     /// </summary>
     /// <param name="bookId"></param>
@@ -221,9 +224,10 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
         var bookCoverTasks = new List<Task<HttpResponseMessage>>();
         foreach (var bookCoverUrl in bookCoverUrls)
-            bookCoverTasks.Add(httpClient.GetAsync(bookCoverUrl)); 
-            // AS we need a task not result so we are NOT AWATING CALL LIKE  (because await will get us result)
-            // await httpClient.GetAsync(bookCoverUrl)
+            bookCoverTasks.Add(httpClient.GetAsync(bookCoverUrl));
+       
+        // AS we need a task not result so we are NOT AWATING CALL LIKE  (because await will get us result)
+        // await httpClient.GetAsync(bookCoverUrl)
 
         // WAIT FOR ALL TASKS TO BE COMPLETED
         var bookCoverTasksResults = await Task.WhenAll(bookCoverTasks); // WhenAny and others method as well
@@ -242,7 +246,7 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
     public async Task<bool> SaveAsync()
     {
-        return (await _context.SaveChangesAsync() >= 0);
+        return await _context.SaveChangesAsync() >= 0;
     }
 
 }

@@ -10,8 +10,7 @@ namespace CourseLibrary.API;
 internal static class StartupHelperExtensions
 {
     // Add services to the container
-    public static WebApplication ConfigureServices(
-        this WebApplicationBuilder builder)
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddControllers(configure =>
         {
@@ -34,7 +33,7 @@ internal static class StartupHelperExtensions
             options.UseSqlite(@"Data Source=library.db");
         });
 
-       
+
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         builder.Services.AddSwaggerGen();

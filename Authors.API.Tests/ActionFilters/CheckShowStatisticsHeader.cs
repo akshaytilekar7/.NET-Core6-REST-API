@@ -12,7 +12,7 @@ public class CheckShowStatisticsHeaderTests
     public void OnActionExecuting_InvokeWithoutShowStatisticsHeader_ReturnsBadRequest()
     {
         // Arrange 
-        var checkShowStatisticsHeaderActionFilter = new CheckShowStatisticsHeader();
+        var act = new CheckShowStatisticsHeader();
 
         var httpContext = new DefaultHttpContext();
 
@@ -24,7 +24,7 @@ public class CheckShowStatisticsHeaderTests
             controller: null);
 
         // Act
-        checkShowStatisticsHeaderActionFilter.OnActionExecuting(actionExecutingContext);
+        act.OnActionExecuting(actionExecutingContext);
 
         // Assert
         Assert.IsType<BadRequestResult>(actionExecutingContext.Result);

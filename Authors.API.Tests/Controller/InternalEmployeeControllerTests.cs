@@ -46,7 +46,7 @@ namespace EmployeeManagement.Test
             var _demoController = new DemoController(_courseLibraryRepositoryMock.Object, mapper, _propertyMappingService.Object, _propertyCheckerService.Object);
 
             // Act
-            var result = await _demoController.ForUnitTest("timepass", input, "a");
+            ActionResult<IEnumerable<AuthorDto>>? result = await _demoController.ForUnitTest("timepass", input, "a");
 
             // Assert
 
